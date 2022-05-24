@@ -28,7 +28,7 @@ namespace Assets.Scripts.Curves
         {
             var v = t * (p1 - p0);
             var b = p0 + v;
-            
+
             return b;
         }
 
