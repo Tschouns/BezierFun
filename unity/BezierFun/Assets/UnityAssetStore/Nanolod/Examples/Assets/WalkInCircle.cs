@@ -1,20 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkInCircle : MonoBehaviour
 {
     public float radius = 1f;
     public float speed = 100f;
-
+    
     private float angle = 0;
-
-    private void FixedUpdate()
+    
+    void FixedUpdate ()
     {
-        var x = this.radius * Mathf.Cos(this.angle * Mathf.Deg2Rad);
-        var y = this.radius * Mathf.Sin(this.angle * Mathf.Deg2Rad);
+        float x = radius * Mathf.Cos(angle * Mathf.Deg2Rad);
+        float y = radius * Mathf.Sin(angle * Mathf.Deg2Rad);
 
-        this.transform.localRotation = Quaternion.Euler(0, 0 - this.angle, 0);
-        this.transform.localPosition = new Vector3(x, this.transform.localPosition.y, y);
-
-        this.angle += this.speed * Time.deltaTime / this.radius;
+        transform.localRotation = Quaternion.Euler(0, 0 - angle, 0);
+        transform.localPosition = new Vector3(x, transform.localPosition.y, y);
+ 
+        angle += speed * Time.deltaTime / radius;
     }
 }
