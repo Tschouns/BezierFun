@@ -9,7 +9,7 @@ using UnityEngine;
 /// <summary>
 /// Generates a curve / spline along a list of child control points.
 /// </summary>
-public class CurveGenerator : MonoBehaviour
+public class CurveGenerator : MonoBehaviour, ICurveVertices
 {
     [InspectorName("Max. Segment Length")]
     public float maxSegmentLength = 1;
@@ -20,8 +20,22 @@ public class CurveGenerator : MonoBehaviour
     private IReadOnlyList<ControlPoint> controlPoints;
     private LineRenderer lineRenderer;
 
-    // Start is called before the first frame update
-    void Awake()
+    private Vector3[] vertices;
+
+    public IReadOnlyList<Vector3> Vertices
+    {
+        get
+        {
+            if (this.vertices == null)
+            {
+                throw new InvalidOperationException("The curve vertices have not been initialized.");
+            }
+
+            return this.vertices;
+        }
+    }
+
+    private void Awake()
     {
         this.controlPoints = this.GetComponentsInChildren<ControlPoint>();
         this.lineRenderer = this.GetComponent<LineRenderer>();
@@ -29,8 +43,8 @@ public class CurveGenerator : MonoBehaviour
         Field.AssertNotNull(this.controlPoints, nameof(this.controlPoints));
         Field.AssertNotNull(this.lineRenderer, nameof(this.lineRenderer));
 
-        var vertices = CurveHelper.GetCurveVertices(this.controlPoints.Select(p => p.Position).ToArray(), this.maxSegmentLength);
-        this.lineRenderer.positionCount = vertices.Length;
-        this.lineRenderer.SetPositions(vertices);
+        this.vertices = CurveHelper.GetCurveVertices(this.controlPoints.Select(p => p.Position).ToArray(), this.maxSegmentLength);
+        this.lineRenderer.positionCount = this.vertices.Length;
+        this.lineRenderer.SetPositions(this.vertices);
     }
 }
