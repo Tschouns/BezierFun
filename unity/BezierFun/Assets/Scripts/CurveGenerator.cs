@@ -14,6 +14,12 @@ public class CurveGenerator : MonoBehaviour, ICurveVertices
     [InspectorName("Max. Segment Length")]
     public float maxSegmentLength = 1;
 
+    [InspectorName("Render Line")]
+    public bool renderLine = true;
+
+    [InspectorName("Spawn Bubbles")]
+    public bool spawnBubbles = true;
+
     [InspectorName("Bubble Object")]
     public GameObject bubbleObject;
 
@@ -41,10 +47,31 @@ public class CurveGenerator : MonoBehaviour, ICurveVertices
         this.lineRenderer = this.GetComponent<LineRenderer>();
 
         Field.AssertNotNull(this.controlPoints, nameof(this.controlPoints));
-        Field.AssertNotNull(this.lineRenderer, nameof(this.lineRenderer));
 
         this.vertices = CurveHelper.GetCurveVertices(this.controlPoints.Select(p => p.Position).ToArray(), this.maxSegmentLength);
-        this.lineRenderer.positionCount = this.vertices.Length;
-        this.lineRenderer.SetPositions(this.vertices);
+
+        // Spawn bubbles.
+        if (this.spawnBubbles &&
+            this.bubbleObject != null)
+        {
+            foreach (var vertex in vertices)
+            {
+                Instantiate(bubbleObject, vertex, Quaternion.identity);
+            }
+        }
+
+        // Draw line.
+        if (this.renderLine &&
+            this.lineRenderer != null)
+        {
+            this.lineRenderer.positionCount = this.vertices.Length;
+            this.lineRenderer.SetPositions(this.vertices);
+        }
+
+        // Deactivate the control points.
+        foreach (var point in this.controlPoints)
+        {
+            point.Remove();
+        }
     }
 }
