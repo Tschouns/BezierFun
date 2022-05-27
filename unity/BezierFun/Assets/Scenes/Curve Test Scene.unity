@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSegmentLength: 3
+  renderLine: 1
+  spawnBubbles: 1
   bubbleObject: {fileID: 7958721519500906338, guid: 33bd254471d4f8f4ca16ee3f30b56a6c, type: 3}
 --- !u!4 &21024743
 Transform:
@@ -980,6 +982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSegmentLength: 10
+  renderLine: 1
+  spawnBubbles: 1
   bubbleObject: {fileID: 8444282429061459349, guid: e4c1489694c3acc4aa70440ea6d61b28, type: 3}
 --- !u!120 &1008925459
 LineRenderer:
@@ -1616,6 +1620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSegmentLength: 10
+  renderLine: 1
+  spawnBubbles: 1
   bubbleObject: {fileID: 2840370157293504449, guid: a83c19116c387974bbd513e976a08098, type: 3}
 --- !u!4 &1976454250
 Transform:
@@ -1887,6 +1893,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSegmentLength: 5
+  renderLine: 1
+  spawnBubbles: 1
   bubbleObject: {fileID: 927185366375717491, guid: 7d418d3cb92decf4690901cadca54ee5, type: 3}
 --- !u!1001 &3486960542738220543
 PrefabInstance:
